@@ -5,8 +5,7 @@ import React from 'react';
 import { createStore } from 'redux';
 
 const defaultState = {
-	checked: false
-	appName: 'conduit',
+	appName: 'pickup',
 	articles: null
 };
 

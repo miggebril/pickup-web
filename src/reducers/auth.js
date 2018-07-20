@@ -1,5 +1,7 @@
 import {
-  LOGIN,
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   REGISTER,
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED,
@@ -9,7 +11,6 @@ import {
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case LOGIN:
     case REGISTER:
       return {
         ...state,
@@ -32,3 +33,46 @@ export default (state = {}, action) => {
 
   return state;
 };
+
+function auth(state = {
+    isRunning: false,
+    isAuthenticated: localStorage.getItem('token') ? true : false
+  }, action) {
+  switch (action.type) {
+    case LOGIN_REQUEST:
+      return Object.assign({}, state, {
+        isRunning: true,
+        isAuthenticated: false,
+        user: action.credentials
+      });
+    case LOGIN_SUCCESS:
+      return Object.assign({}, state, {
+        isRunning: false,
+        isAuthenticated: true,
+        errorMessage: ''
+      });
+    case LOGIN_FAIL:
+      return Object.assign({}, state, {
+        isRunning: false,
+        isAuthenticated: false,
+        errorMessage: action.message
+      });
+    default:
+      return state;
+  }
+}
+
+function players(state = {}, action) {
+  switch (action.type) {
+
+    default:
+      return state;
+  }
+}
+
+const playerApp = combineReducers({
+  auth,
+  players,
+})
+
+export default playerApp;

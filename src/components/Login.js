@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 class Login extends React.Component {
   render() {
+    const { errorMessage } = this.props;
+    
     return (
       <div className="auth-page">
         <div className="container-page">

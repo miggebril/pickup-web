@@ -10,9 +10,15 @@ const mapStateToProps = state => ({
 
 class App extends React.Component {
   render() {
+    const { dispatch, isAuthenticated, errorMessage } = this.props;
     return (
       <div>
-        <Header appName={this.props.appName} />
+        <Header
+          appName={this.props.appName}
+          isAuthenticated={isAuthenticated}
+          errorMessage={errorMessage}
+          dispatch={dispatch} 
+        />
         {this.props.children}
       </div>
     );

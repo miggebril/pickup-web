@@ -5,6 +5,7 @@ const defaultState = {
   appName: 'Pickup',
   articles: null
 };
+
 const reducer = function(state = defaultState, action) {
   switch (action.type) {
     case 'HOME_PAGE_LOADED':

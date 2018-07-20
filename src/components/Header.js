@@ -7,9 +7,9 @@ class Header extends React.Component {
       <nav className="navbar navbar-light">
         <div className="container">
           
-        <Link to="/" className="navbar-brand">
+        <a href="/" className="navbar-brand" >
           {this.props.appName.toLowerCase()}
-        </Link>
+        </a>
 
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">

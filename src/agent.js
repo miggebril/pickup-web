@@ -9,7 +9,18 @@ const responseBody = res => res.body;
 
 const requests = {
   get: url =>
-    superagent.get(`${API_ROOT}${url}`).then(responseBody)
+    superagent.get(`${API_ROOT}${url}`).then(responseBody),
+
+  post: url =>
+  	superagent.get(`${API_ROOT}${url}`).then(responseBody)
+};
+
+const Players = {
+	all: page =>
+		requests.get(`/users`).then(responseBody),
+
+	new: page => 
+		requests.post(`/users`).then(responseBody)
 };
 
 const Games = {
@@ -18,5 +29,6 @@ const Games = {
 };
 
 export default {
-  Games
+  Games,
+  Players
 };

@@ -28,12 +28,16 @@ function onLoginFail(response) {
 }
 
 export function login(credentials) {
+	let body = {
+		"Email" : credentials.email,
+		"Password" : credentials.password
+	};
 
-	let request = {
+	var request = {
 		method: 'POST',
 		headers: { 'Content-Type' : 'application/json' },
-		body: `Email=${credentials.email}&Password=${credentials.password}`
-	}
+		body: JSON.stringify(body)
+	};
 
 	return dispatch => {
 
@@ -41,17 +45,18 @@ export function login(credentials) {
 
 		return fetch('http://localhost:8077/login', request)
 			.then(response =>
-				response.json().then(user => ({user, response}))
-					).then(({user, response}) => {
-						if (!response.ok) {
-							dispatch(onLoginFail(user.message));
-							return Promise.reject(user)
-						} else {
-							localStorage.setItem('token', user.token);
-							localStorage.setItem('userId', user.id);
+				response.json()
+			.then(user => ({user, response})))
+			.then(({user, response}) => {
+				if (!response.ok) {
+					dispatch(onLoginFail(user.message));
+					return Promise.reject(user);
+				} else {
+					localStorage.setItem('token', user.token);
+					localStorage.setItem('userId', user.id);
 
-							dispatch(onLoginSuccess(user));
-						}
-					}).catch(err => console.log("Error on login action: ", err))
+					dispatch(onLoginSuccess(user));
+				}
+			}).catch(err => console.log("Error on login action: ", err))
 	}
 }

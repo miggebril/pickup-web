@@ -16,10 +16,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Home extends React.Component {
-  componentWillMount() {
-    this.props.onLoad(agent.Games.all());
-  }
-
   render() {
     return (
       <div className="home-page">

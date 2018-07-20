@@ -60,19 +60,19 @@ function auth(state = {
     default:
       return state;
   }
-}
+};
 
-function players(state = {}, action) {
+function games(state = {}, action) {
   switch (action.type) {
 
     default:
       return state;
   }
-}
+};
 
-const playerApp = combineReducers({
+const gamesApp = combineReducers({
   auth,
-  players,
-})
+  games,
+});
 
-export default playerApp;
+export default gamesApp;

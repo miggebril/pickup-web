@@ -3,7 +3,11 @@ import { promiseMiddleware } from './middleware';
 
 const defaultState = {
   appName: 'Pickup',
-  articles: null
+  auth: {
+	  isRunning: false,
+	  isAuthenticated: false,
+	  errorMessage: ""
+	}
 };
 
 const reducer = function(state = defaultState, action) {
@@ -15,7 +19,6 @@ const reducer = function(state = defaultState, action) {
 };
 
 const middleware = applyMiddleware(promiseMiddleware);
-
 const store = createStore(reducer, middleware);
 
 export default store;

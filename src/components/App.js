@@ -4,10 +4,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-const mapStateToProps = state => ({
-  appName: state.appName
-});
-
 class App extends React.Component {
   render() {
     const { dispatch, isAuthenticated, errorMessage } = this.props;
@@ -25,11 +21,25 @@ class App extends React.Component {
   }
 }
 
-App.contextTypes = {
-	router: PropTypes.object.isRequired
+// type-check to ensure App can render
+App.propTypes = {
+	dispatch: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool.isRequired,
+	errorMessage: PropTypes.string.isRequired
+}
+
+function mapStateToProps(state) {
+	const { auth } = state;
+	const { isAuthenticated, errorMessage } = auth;
+
+	return {
+	  appName: state.appName,
+	  isAuthenticated,
+	  errorMessage
+	}
 };
 
-export default connect(mapStateToProps, () => ({}) )(App);
+export default connect(mapStateToProps)(App);
 
 
 

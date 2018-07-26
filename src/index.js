@@ -13,7 +13,7 @@ const PickupRouter = () => (
 	<Router history={hashHistory}>
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
-			<PropsRoute path="login" component={Login} onLoginClick={ credentials => Login.dispatch(login(credentials))}/>
+			<PropsRoute path="login" component={Login} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
 		</Route>
 	</Router>
 );
@@ -21,7 +21,7 @@ const PickupRouter = () => (
 const PropsRouter = () => {
 	<Router>
 		<Switch>
-			<PropsRoute path='/login' component={Login} onLoginClick={ credentials => Login.dispatch(login(credentials))}/>
+			<PropsRoute path='/login' component={Login} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
 		</Switch>
 	</Router>
 };
@@ -45,7 +45,7 @@ const PropsRoute = ({ component, ...rest }) => {
 
 ReactDOM.render((
     <Provider store={store}>
-      <PickupRouter/>
+      <PickupRouter />
     </Provider> 
 ), document.getElementById('root'));
 

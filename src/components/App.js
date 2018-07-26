@@ -7,6 +7,10 @@ import PropTypes from 'prop-types';
 class App extends React.Component {
   render() {
     const { dispatch, isAuthenticated, errorMessage } = this.props;
+    console.log("App component properties...");
+    console.log(this.props);
+    console.log("Finished logging app properties");
+
     return (
       <div>
         <Header
@@ -15,6 +19,7 @@ class App extends React.Component {
           errorMessage={errorMessage}
           dispatch={dispatch} 
         />
+        
         {this.props.children}
       </div>
     );

@@ -25,7 +25,10 @@ const Players = {
 
 const Games = {
   all: page =>
-    requests.get(`/games?limit=10`)
+    requests.get(`/games?limit=10`),
+
+  new: page =>
+  	requests.post(`/games?id=${localStorage.getItem('userId')}`)
 };
 
 export default {

@@ -3,12 +3,7 @@ import { login } from '../actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const mapDispatchToProps = dispatch => {
-    onLoginClick: (creds) =>
-      dispatch({type: 'LOGIN_REQUEST', creds})
-};
-
-class Login extends React.Component {
+export default class Login extends React.Component {
 
   handleClick = (event) => {
     let email = this.refs.email.value.trim();
@@ -18,13 +13,15 @@ class Login extends React.Component {
       password: password 
     };
 
+    console.log("Login component props..")
     console.log(this.props)
-    this.props.onLoginClick(credentials);
+    console.log("End of Login component props...")
+    this.props.route.onLoginClick({type: 'LOGIN_REQUEST', credentials});
   };
 
   render() {
-    const { errorMessage } = this.props;
-    
+    const { onClicked, errorMessage } = this.props;
+
     return (
       <div className="auth-page">
         <div className="container-page">
@@ -89,5 +86,3 @@ Login.propTypes = {
   onLoginClick: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 };
-
-export default connect(() => ({}), ({}))(Login);

@@ -1,3 +1,8 @@
+export const SUCCESS = 'SUCCESS';
+export const FAIL = 'FAIL';
+export const WARNING = 'WARNING';
+export const PENDING = 'PENDING';
+
 export const APP_LOAD = 'APP_LOAD';
 export const REDIRECT = 'REDIRECT';
 export const ARTICLE_SUBMITTED = 'ARTICLE_SUBMITTED';

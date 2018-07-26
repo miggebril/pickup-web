@@ -1,34 +1,17 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants/actionTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL,
+		 USER_INFO_REQUEST, USER_INFO_SUCCESS, USER_INFO_FAIL  } from './constants/actionTypes';
+
 import { CALL_API } from './middleware/api';
 
-function onLoginRequest(credentials) {
-	return {
-		type: LOGIN_REQUEST,
-		isRunning: true,
-		isAuthenticated: false,
-		credentials
-	}
-};
-
-function onLoginSuccess(user) {
-	return {
-		type: LOGIN_SUCCESS,
-		isRunning: false,
-		isAuthenticated: true,
-		token: user.token
-	}
+export const userActions = {
+	login,
+	register,
+	getAll,
+	getUserInfo,
+	logout
 }
 
-function onLoginFail(message) {
-	return {
-		type: LOGIN_FAIL,
-		isRunning: false,
-		isAuthenticated: false,
-		message
-	}
-}
-
-export function login(credentials) {
+function login(credentials) {
 	console.log("Login request...");
 	let creds = credentials.credentials;
 
@@ -66,11 +49,21 @@ export function login(credentials) {
 					dispatch(onLoginFail(user));
 					return Promise.reject(user);
 				} else {
-					localStorage.setItem('token', body.Token);
-					localStorage.setItem('email', body.Email);
+					localStorage.setItem('token', user.Token);
+					localStorage.setItem('userId', user.Email);
 
 					dispatch(onLoginSuccess(user));
 				}
 			}).catch(err => console.log("Error on login: ", err))
 	}
-}
+};
+
+function getUserInfo() {
+	return {
+		[CALL_API]: {
+			endpoint : '/users/me',
+			isAuthenticated : true,
+			types : [USER_INFO_REQUEST, USER_INFO_SUCCESS, USER_INFO_FAIL]
+		}
+	};
+};

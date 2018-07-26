@@ -12,7 +12,7 @@ import {
 
 function auth(state = {
     isRunning: false,
-    isAuthenticated: localStorage.getItem('token') ? true : false
+    isAuthenticated: (localStorage.getItem('token') === 'undefined') ? false : true
   }, action) {
   console.log("Auth reducer being executed...")
   console.log("Action type: ")
@@ -31,6 +31,8 @@ function auth(state = {
         errorMessage: ''
       });
     case LOGIN_FAIL:
+    console.log("FAILURE RESPONSE ACTION");
+    console.log(action);
       return Object.assign({}, state, {
         isRunning: false,
         isAuthenticated: false,
@@ -49,9 +51,18 @@ function games(state = {}, action) {
   }
 };
 
+function user(state = {}, action) {
+  switch (action.type) {
+
+    default:
+      return state;
+  }
+};
+
 const gamesApp = combineReducers({
   auth,
   games,
+  user,
 });
 
 export default gamesApp;

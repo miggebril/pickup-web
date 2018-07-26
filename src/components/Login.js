@@ -3,7 +3,16 @@ import { login } from '../actions';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isRunning : false,
+      isAuthenticated : false,
+      errorMessage : ''
+    }
+  }
 
   handleClick = (event) => {
     let email = this.refs.email.value.trim();
@@ -16,11 +25,19 @@ export default class Login extends React.Component {
     console.log("Login component props..")
     console.log(this.props)
     console.log("End of Login component props...")
-    this.props.route.onLoginClick({type: 'LOGIN_REQUEST', credentials});
+
+    //const { dispatch } = ;
+
+    // let error = this.props.route.onLoginClick({type: 'LOGIN_REQUEST', credentials});
+    let error = this.props.dispatch(login({type: 'LOGIN_REQUEST', credentials}));
+    console.log("Login click promise result: ");
+    console.log(error);
+    console.log("Login click credentials state:");
+    console.log(credentials);
   };
 
   render() {
-    const { onClicked, errorMessage } = this.props;
+    const { errorMessage } = this.props;
 
     return (
       <div className="auth-page">
@@ -61,18 +78,15 @@ export default class Login extends React.Component {
                   onClick={(event) => this.handleClick(event)}>
 
                   Get Next
-
-                  {
-                    errorMessage &&
-                    <div className="isa_error">
-                      <p>{errorMessage}</p>
-                    </div>
-                  }
-
                 </button>
-
                 </fieldset>
               </form>
+
+              {
+                errorMessage &&
+                <p className="isa_error">{errorMessage}</p>
+              }
+
             </div>
 
           </div>
@@ -86,3 +100,17 @@ Login.propTypes = {
   onLoginClick: PropTypes.func.isRequired,
   errorMessage: PropTypes.string
 };
+
+function mapStateToProps(state) {
+  console.log("Login state mapping");
+  console.log(state);
+  console.log("End of login state");
+
+  const { status } = state;
+  
+  return {
+    status
+  };
+}
+
+export default connect(mapStateToProps)(Login); 

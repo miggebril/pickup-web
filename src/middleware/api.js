@@ -1,14 +1,16 @@
+import React from 'react';
+
 const BASE_URL = 'http://localhost:8007/'
 
 function callApi(endpoint, isAuthenticated) {
 
-	let token = localStore.getItem('token') || null;
+	let token = localStorage.getItem('token') || null;
 	let request = {}
 
 	if (isAuthenticated) {
 		if (token) {
 			request = {
-				headers: { 'Authorization' : `Bearer $token` }
+				headers: { 'Authorization' : `Bearer ${token}` }
 			}
 		} else {
 			throw "No token found";

@@ -3,9 +3,12 @@ import Home from './Home';
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import store from '../store';
 
 class App extends React.Component {
   render() {
+    console.log("On render, App properties...");
+    console.log(this.props);
     const { dispatch, isAuthenticated, errorMessage } = this.props;
     console.log("App component properties...");
     console.log(this.props);
@@ -24,7 +27,9 @@ class App extends React.Component {
       </div>
     );
   }
-}
+};
+
+App.defaultProps = store.defaultProps;
 
 // type-check to ensure App can render
 App.propTypes = {
@@ -34,11 +39,11 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-	const { auth } = state;
+	const { auth } = state.reducer;
 	const { isAuthenticated, errorMessage } = auth;
 
 	return {
-	  appName: state.appName,
+	  appName: state.reducer.appName,
 	  isAuthenticated,
 	  errorMessage
 	}

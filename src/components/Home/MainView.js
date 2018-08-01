@@ -1,9 +1,9 @@
-import GameList from '../GameList';
+// import GameList from '../GameList';
 import React from 'react';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-  articles: state.articles
+  games: state.games
 });
 
 const MainView = props => {

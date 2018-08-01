@@ -1,4 +1,3 @@
-import React from 'react';
 
 const BASE_URL = 'http://localhost:8007/'
 
@@ -13,7 +12,7 @@ function callApi(endpoint, isAuthenticated) {
 				headers: { 'Authorization' : `Bearer ${token}` }
 			}
 		} else {
-			throw "No token found";
+			throw new Error("No token found");
 		}
 	}
 
@@ -41,10 +40,11 @@ export default store => next => action => {
 
 	const [ handlerType, successType, errorType ] = types;
 
-	return apiHandler(endpoint, authenticated).then(
+	return callApi(endpoint, authenticated).then(
 		response =>
 			next({response,
 				  authenticated,
+				  handlerType,
 				  type: successType}),
 		error => next({
 			error: error.message || 'Error occurred.',

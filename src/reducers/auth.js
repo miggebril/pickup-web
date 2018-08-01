@@ -2,12 +2,7 @@ import { combineReducers } from 'redux';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER,
-  LOGIN_PAGE_UNLOADED,
-  REGISTER_PAGE_UNLOADED,
-  ASYNC_START,
-  UPDATE_FIELD_AUTH
+  LOGIN_FAIL
 } from '../constants/actionTypes';
 
 function auth(state = {

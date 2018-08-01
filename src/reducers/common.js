@@ -15,7 +15,6 @@ import {
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from '../constants/actionTypes';
 
 export default function common(state = {
     appName: 'Pickup'

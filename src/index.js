@@ -1,9 +1,8 @@
 import ReactDOM from 'react-dom';
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import store from './store';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import App from './components/App';
-import { Switch } from 'react-router-dom';
 import { Router, Route, IndexRoute, hashHistory  } from 'react-router';
 import Home from './components/Home';
 import Login from './components/Login';
@@ -18,13 +17,13 @@ const PickupRouter = () => (
 	</Router>
 );
 
-const PropsRouter = () => {
-	<Router>
-		<Switch>
-			<PropsRoute path='/login' component={Login} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
-		</Switch>
-	</Router>
-};
+// const PropsRouter = () => {
+// 	<Router>
+// 		<Switch>
+// 			<PropsRoute path='/login' component={Login} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
+// 		</Switch>
+// 	</Router>
+// };
 
 //Initialize component with new properties object
 const renderMergedProps = (component, ...rest) => {

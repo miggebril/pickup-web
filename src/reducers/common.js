@@ -4,7 +4,6 @@ import {
   LOGOUT,
   ARTICLE_SUBMITTED,
   SETTINGS_SAVED,
-  LOGIN,
   REGISTER,
   DELETE_ARTICLE,
   ARTICLE_PAGE_UNLOADED,
@@ -16,14 +15,11 @@ import {
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from '../constants/actionTypes';
 
-const defaultState = {
-  appName: 'Pickup',
-  token: null,
-  viewChangeCounter: 0
-};
-
-export default (state = defaultState, action) => {
+export default function common(state = {
+    appName: 'Pickup'
+  }, action) {
   switch (action.type) {
     case APP_LOAD:
       return {
@@ -45,7 +41,6 @@ export default (state = defaultState, action) => {
         redirectTo: action.error ? null : '/',
         currentUser: action.error ? null : action.payload.user
       };
-    case LOGIN:
     case REGISTER:
       return {
         ...state,

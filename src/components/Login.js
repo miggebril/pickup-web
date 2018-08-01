@@ -4,36 +4,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isRunning : false,
-      isAuthenticated : false,
-      errorMessage : ''
-    }
-  }
 
   handleClick = (event) => {
-    let email = this.refs.email.value.trim();
-    let password = this.refs.password.value.trim();
-    let credentials = { 
-      email: email,
-      password: password 
+    let credentials = {
+      email : this.refs.email.value.trim(),
+      password : this.refs.password.value.trim() 
     };
 
-    console.log("Login component props..")
-    console.log(this.props)
-    console.log("End of Login component props...")
+    console.log("Login component props..\n");
+    console.log(this.props);
 
-    //const { dispatch } = ;
-
-    // let error = this.props.route.onLoginClick({type: 'LOGIN_REQUEST', credentials});
-    let error = this.props.dispatch(login({type: 'LOGIN_REQUEST', credentials}));
-    console.log("Login click promise result: ");
-    console.log(error);
-    console.log("Login click credentials state:");
-    console.log(credentials);
+    this.props.dispatch(login({ type : 'LOGIN_REQUEST', credentials}));
   };
 
   render() {
@@ -97,20 +78,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  onLoginClick: PropTypes.func.isRequired,
+  onLoginClick: PropTypes.func,
   errorMessage: PropTypes.string
 };
 
-function mapStateToProps(state) {
-  console.log("Login state mapping");
-  console.log(state);
-  console.log("End of login state");
-
-  const { status } = state;
-  
-  return {
-    status
-  };
-}
-
-export default connect(mapStateToProps)(Login); 
+export default connect(() => ({}))(Login);

@@ -12,11 +12,11 @@ import {
 
 function auth(state = {
     isRunning: false,
-    isAuthenticated: (localStorage.getItem('token') === 'undefined') ? false : true
+    isAuthenticated: localStorage.getItem('token') ? true : false
   }, action) {
-  console.log("Auth reducer being executed...")
-  console.log("Action type: ")
-  console.log(action.type)
+
+  console.log("Action type:\n" + action.type);
+
   switch (action.type) {
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
@@ -31,8 +31,6 @@ function auth(state = {
         errorMessage: ''
       });
     case LOGIN_FAIL:
-    console.log("FAILURE RESPONSE ACTION");
-    console.log(action);
       return Object.assign({}, state, {
         isRunning: false,
         isAuthenticated: false,

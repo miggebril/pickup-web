@@ -39,11 +39,13 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-	const { auth } = state.reducer;
+  console.log("App state mapping...");
+  console.log(state);
+	const { auth } = state.gamesApp;
 	const { isAuthenticated, errorMessage } = auth;
 
 	return {
-	  appName: state.reducer.appName,
+	  appName: state.common.appName,
 	  isAuthenticated,
 	  errorMessage
 	}

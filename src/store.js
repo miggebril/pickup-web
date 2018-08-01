@@ -2,26 +2,20 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import api from './middleware/api';
 import gamesApp from './reducers/auth';
+import common from './reducers/common'
 
 const defaultState = {
   appName: 'Pickup',
+  token: null,
+  viewChangeCounter: 0,
   auth: {
-	  isRunning: false,
-	  isAuthenticated: false,
-	  errorMessage: ""
-	}
-};
-
-function reducer(state = defaultState, action) {
-  console.log("Reducer called in store component. WRONG FUNCTION EXECUTED");
-  switch (action.type) {
-    case 'HOME_PAGE_LOADED':
-      return { ...state, articles: action.payload.articles };
+    isRunning: false,
+    isAuthenticated: false,
+    errorMessage: ""
   }
-  return state;
 };
 
 let createStoreWithMiddleware = applyMiddleware(thunkMiddleware, api)(createStore);
-const store = createStoreWithMiddleware(combineReducers({reducer, gamesApp}));
+const store = createStoreWithMiddleware(combineReducers({common, gamesApp}));
 
 export default store;

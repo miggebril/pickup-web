@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants/actionTypes';
+	import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from './constants/actionTypes';
 import { CALL_API } from './middleware/api';
 
 function onLoginRequest(credentials) {

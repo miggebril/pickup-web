@@ -28,7 +28,7 @@ const Games = {
     requests.get(`/games?limit=10`),
 
   new: page =>
-  	requests.post(`/games?id=${localStorage.getItem('userId')}`)
+  	requests.post(`/games`)
 };
 
 export default {

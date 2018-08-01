@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import games from './games';
+import gameList from './gameList';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -7,7 +9,8 @@ import {
 
 function auth(state = {
     isRunning: false,
-    isAuthenticated: localStorage.getItem('token') ? true : false
+    isAuthenticated: localStorage.getItem('token') ? true : false,
+    redirectTo: '/login'
   }, action) {
 
   console.log("Action type:\n" + action.type);
@@ -23,7 +26,8 @@ function auth(state = {
       return Object.assign({}, state, {
         isRunning: false,
         isAuthenticated: true,
-        errorMessage: ''
+        errorMessage: '',
+        redirectTo: '/'
       });
     case LOGIN_FAIL:
       return Object.assign({}, state, {
@@ -36,26 +40,10 @@ function auth(state = {
   }
 };
 
-function games(state = {}, action) {
-  switch (action.type) {
-
-    default:
-      return state;
-  }
-};
-
-function user(state = {}, action) {
-  switch (action.type) {
-
-    default:
-      return state;
-  }
-};
-
 const gamesApp = combineReducers({
   auth,
   games,
-  user,
+
 });
 
 export default gamesApp;

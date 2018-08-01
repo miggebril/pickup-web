@@ -3,64 +3,82 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import store from '../store';
+import { push } from 'react-router-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { REDIRECT, APP_LOAD } from '../constants/actionTypes';
 
 class App extends React.Component {
+
+  componentWillMount() {
+    const token = window.localStorage.getItem('token');
+    let cachedUser =  {token, email : localStorage.getItem('email')};
+    this.props.onLoad(token ? {user : cachedUser} : null, token);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      store.dispatch(push(nextProps.redirectTo));
+      this.props.onRedirect();
+    }
+  }
+
   render() {
     console.log("On render, App properties...");
     console.log(this.props);
-    const { dispatch, isAuthenticated, errorMessage } = this.props;
-    console.log("App component properties...");
-    console.log(this.props);
-    console.log("Finished logging app properties");
+    const { dispatch } = this.props;
 
     return (
-      <div>
-        <Header
-          appName={this.props.appName}
-          isAuthenticated={isAuthenticated}
-          errorMessage={errorMessage}
-          dispatch={dispatch} 
-        />
-        
-        {this.props.children}
-      </div>
-    );
+        <div>
+          <Header
+            appName={this.props.appName}
+            currentUser={this.props.currentUser}
+            dispatch={dispatch}
+          />
+          {this.props.children}
+        </div>
+      );
   }
 };
 
-App.defaultProps = store.defaultProps;
+// App.defaultProps = store.defaultProps;
 
-// type-check to ensure App can render
-App.propTypes = {
-	dispatch: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool.isRequired,
-	errorMessage: PropTypes.string.isRequired
-}
+// // type-check to ensure App can render
+// App.propTypes = {
+// 	dispatch: PropTypes.func.isRequired,
+// 	isAuthenticated: PropTypes.bool.isRequired,
+// 	errorMessage: PropTypes.string.isRequired
+// }
 
-function mapStateToProps(state) {
-  console.log("App state mapping...");
-  console.log(state);
-	const { auth } = state.gamesApp;
-	const { isAuthenticated, errorMessage } = auth;
+const mapDispatchToProps = dispatch => ({
+  onRedirect: () =>
+    dispatch({ type: REDIRECT }),
+  onLoad: (payload, token) =>
+    dispatch({ type: APP_LOAD, payload, token }),
+});
 
-	return {
-	  appName: state.common.appName,
-	  isAuthenticated,
-	  errorMessage
-	}
-};
+const mapStateToProps = state => ({
+  appName: state.common.appName,
+  loaded: state.common.appLoaded,
+  currentUser: state.common.currentUser,
+  // isAuthenticated: state.gamesApp.auth.isAuthenticated,
+  // errorMessage: state.gamesApp.auth.errorMessage,
+  redirectTo: state.common.redirectTo
+});
 
-export default connect(mapStateToProps)(App);
-
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 
 
 
+
+
+
+
+///<Switch>
+        //      <Route path="/" component={Home}/>
+          //    <Route path="login" component={Login}/>
+            //</Switch>
 
 
 

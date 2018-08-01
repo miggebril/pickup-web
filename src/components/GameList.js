@@ -1,4 +1,6 @@
 import React from 'react';
+import GamePreview from './GamePreview';
+import ListPagination from './ListPagination';
 
 const GameList = props => {
   if (!props.games) {
@@ -20,10 +22,15 @@ const GameList = props => {
       {
         props.games.map(game => {
           return (
-            <h2>{game.name}</h2>
+            <GamePreview game={game} key={game.id}/>
           );
         })
       }
+
+      <ListPagination 
+        request={props.request}
+        currentPage={props.currentPage}
+        gamesCount={props.gamesCount} />
     </div>
   );
 }

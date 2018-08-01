@@ -17,14 +17,6 @@ const PickupRouter = () => (
 	</Router>
 );
 
-// const PropsRouter = () => {
-// 	<Router>
-// 		<Switch>
-// 			<PropsRoute path='/login' component={Login} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
-// 		</Switch>
-// 	</Router>
-// };
-
 //Initialize component with new properties object
 const renderMergedProps = (component, ...rest) => {
   const finalProps = Object.assign({}, ...rest);

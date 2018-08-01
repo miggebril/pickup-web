@@ -2,21 +2,50 @@ import Banner from './Banner'
 import MainView from './MainView';
 import React from 'react'
 import { connect } from 'react-redux'
+import { getGameFeed } from '../../actions';
+import { gameActions } from '../../actions/gameActions';
+
+import {
+  HOME_PAGE_LOADED,
+  HOME_PAGE_UNLOADED
+} from '../../constants/actionTypes';
+
+const Promise = global.Promise;
 
 const mapStateToProps = state => ({
-  appName: state.common.appName
+  ...state.home,
+  appName: state.common.appName,
+  token: state.common.currentUser.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (payload) =>
-    dispatch({ type: 'HOME_PAGE_LOADED', payload}),
+  onLoad: (feed, request, payload) =>
+    dispatch({ type: HOME_PAGE_LOADED, feed, request, payload }),
+  onUnload: () => {
+    dispatch({ type: HOME_PAGE_UNLOADED })
+  }
 });
 
 class Home extends React.Component {
+
+  componentWillMount() {
+    const feed = this.props.token ? 'local' : 'global';
+    const requestHandler = getGameFeed;
+
+    this.props.onLoad(feed, requestHandler, Promise.all([requestHandler()]));
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
   render() {
+    console.log("Home PROPS");
+    console.log(this.props);
+
     return (
       <div className="home-page">
-        <Banner appName={this.props.appName} />
+        <Banner token={this.props.token} appName={this.props.appName} />
 
         <div className="container page">
           <div className="row">

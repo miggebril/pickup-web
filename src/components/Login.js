@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 
 class Login extends React.Component {
 
-  handleClick = (event) => {
+  state = {
+    isLoggedIn: false
+  };
+
+  handleClick(event) {
+    event.preventDefault();
+
     let credentials = {
       email : this.refs.email.value.trim(),
       password : this.refs.password.value.trim() 
@@ -15,11 +21,19 @@ class Login extends React.Component {
     console.log(this.props);
 
     this.props.dispatch(login({ type : 'LOGIN_REQUEST', credentials}));
+    this.props.router.push("/");
+    this.setState({
+      isLoggedIn: true
+    });
   };
 
   render() {
     const { errorMessage } = this.props;
+    console.log("Login STATE");
+    console.log(this.state);
 
+    console.log("Login PROPERTIES");
+    console.log(this.props);
     return (
       <div className="auth-page">
         <div className="container-page">

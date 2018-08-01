@@ -1,8 +1,9 @@
 
-const BASE_URL = 'http://localhost:8007/'
+const BASE_URL = 'http://localhost:8077/'
 
 function callApi(endpoint, isAuthenticated) {
-
+	console.log("API middleware action successfully called to: ", endpoint);
+	
 	let token = localStorage.getItem('token') || null;
 	let request = {}
 
@@ -27,10 +28,14 @@ function callApi(endpoint, isAuthenticated) {
 			}).catch(err => console.log(err));
 };
 
-export const CALL_API = Symbol('Call API');
+export const CALL_API = Symbol('Call API')
 
 export default store => next => action => {
 	const apiHandler = action[CALL_API];
+
+	console.log("API HANDLER ACTIONS:");
+	console.log(action);
+	console.log(apiHandler);
 
 	if (typeof apiHandler === 'undefined') {
 		return next(action);
@@ -46,9 +51,10 @@ export default store => next => action => {
 				  authenticated,
 				  handlerType,
 				  type: successType}),
-		error => next({
-			error: error.message || 'Error occurred.',
-			type: errorType
-		})
+		error => 
+			next({
+				error: error.message || 'Error occurred.',
+				type: errorType
+			})
 	);
 }

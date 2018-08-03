@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { GAME_INFO_REQUEST, 
          GAME_INFO_SUCCESS, 
-         GAME_INFO_FAIL} from '../constants/actionTypes';
+         GAME_INFO_FAIL } from '../constants/actionTypes';
 
 const ACTIVE_CLASS = 'btn btn-sm btn-primary';
 const PENDING_CLASS = 'btn btn-sm btn-outline-primary';
@@ -13,8 +13,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const GamePreview = props => {
+  console.log("Game Preview PROPS");
+  console.log(props);
+
   const game = props.game;
-  const gameClass = game.scoreboard.home === 0 && game.scoreboard.away === 0 ?
+  const gameClass = game.HomeScore === 0 && game.AwayScore === 0 ?
     ACTIVE_CLASS : PENDING_CLASS;
 
   const handleClick = (event) => {
@@ -29,8 +32,8 @@ const GamePreview = props => {
       <div className="game-meta">
 
         <div className="info">
-          <Link to={`users/${game.owner.id}`} className="court">
-           { game.court.name }
+          <Link to={`users/${game.Owner.ID}`} className="court">
+           { game.HomeCourt.name }
           </Link>
           <button className={gameClass} onClick={handleClick}>
             <span className="status">
@@ -47,15 +50,15 @@ const GamePreview = props => {
           <button
             className="btn btn-sm btn-outline-primary">
             <i className="ion-heart"></i>
-            {game.court.rating}
+            {game.HomeCourt.rating}
           </button>
 
         </div>
       </div>
 
-      <Link to={`games/${game.id}`} className="preview-link">
-        <h1>{game.name}</h1>
-        <p>{game.owner.username}</p>
+      <Link to={`games/${game.ID}`} className="preview-link">
+        <h1>{game.Name}</h1>
+        <p>{game.Owner.Username}</p>
         <span>Details</span>
 
       </Link>

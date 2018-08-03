@@ -1,18 +1,20 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import store from './store';
+import { history, store } from './store';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import { Router, Route, IndexRoute, hashHistory  } from 'react-router';
 import Home from './components/Home';
+import Game from './components/Game';
 import Login from './components/Login';
 import { login } from './actions';
 
 const PickupRouter = () => (
-	<Router history={hashHistory}>
+	<Router history={history}>
 		<Route path="/" component={App}>
 			<IndexRoute component={Home} />
 			<PropsRoute path="login" component={Login} errorMessage={store.errorMessage} onLoginClick={ credentials => store.dispatch(login(credentials))}/>
+      <PropsRoute path="games/:id" component={Game} />
 		</Route>
 	</Router>
 );

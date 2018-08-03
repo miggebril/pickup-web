@@ -9,12 +9,12 @@ function onLoginRequest(credentials) {
 	}
 };
 
-function onGameRequest(credentials) {
+function onGameRequest(currentUser) {
 	return {
 		type: GAME_INFO_REQUEST,
 		isRunning: true,
 		isAuthenticated: true,
-		credentials
+		currentUser
 	}
 }
 
@@ -32,16 +32,19 @@ function onLoginSuccess(user) {
 		type: LOGIN_SUCCESS,
 		isRunning: false,
 		isAuthenticated: true,
-		token: user.token
+		currentUser: {
+			token: user.Token,
+			email: user.Email
+		}
 	}
 }
 
-function onGameSuccess(game) {
+function onGameSuccess(games) {
 	return {
 		type: GAME_INFO_SUCCESS,
 		isRunning: false,
 		isAuthenticated: true,
-		game
+		games
 	}
 }
 
@@ -89,9 +92,7 @@ export function login(credentials) {
 				response.text().then(user => ({user, response})))
 			.then(({user, response}) => {
 				const body = JSON.parse(user);
-				console.log("User response value");
-				console.log(user);
-				console.log("Parsed response");
+				console.log("Parsed user body");
 				console.log(body);
 				console.log("Response value");
 				console.log(response);
@@ -112,11 +113,18 @@ export function login(credentials) {
 
 export function getGameFeed(creds) {
 	console.log("Requesting feed...");
+	console.log(creds);
 
+	let bearer = 'Bearer ' + creds;
+
+	let authHeader = {Authorization : bearer};
+	console.log("AUTH HEADER");
+	console.log(authHeader);
+	
 	let endpoint = 'http://localhost:8077/games';
 	let request = {
 		method : 'GET',
-		headers : { },
+		headers: { Authorization : bearer },
 		body : { }
 	};
 
@@ -127,14 +135,13 @@ export function getGameFeed(creds) {
 		console.log("Dispatching request for game feed");
 
 		dispatch(onGameRequest(creds));
-		return fetch(endpoint, request)
+
+		return fetch('http://localhost:8077/games', request)
 			.then(response => 
 				response.text().then(game => ({game, response})))
 			.then(({game, response}) => {
 				const body = JSON.parse(game);
-				console.log("Game response value");
-				console.log(game);
-				console.log("Parsed response");
+				console.log("Parsed game body");
 				console.log(body);
 				console.log("Response value");
 				console.log(response);

@@ -8,6 +8,7 @@ import {
   DELETE_ARTICLE,
   ARTICLE_PAGE_UNLOADED,
   EDITOR_PAGE_UNLOADED,
+  HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   PROFILE_PAGE_UNLOADED,
   PROFILE_FAVORITES_PAGE_UNLOADED,
@@ -19,16 +20,30 @@ import {
 export default function common(state = {
     appName: 'Pickup'
   }, action) {
+
+  console.log("COMMON REDUCER CALLED");
+  console.log(state);
+  console.log(action);
+
   switch (action.type) {
     case APP_LOAD:
-      console.log("APP LOAD REDUCER CALLED");
-      console.log(state);
-      console.log(action);
         return {
           ...state,
-          token: action.token || null,
           appLoaded: true,
-          currentUser: action.payload ? action.payload.user : null
+          currentUser: {
+            token:  action.currentUser.token,
+            email:  action.currentUser.email
+          }
+        };
+    case HOME_PAGE_LOADED:
+    return {
+          ...state,
+          appLoaded: true,
+          feed: action.feed,
+          currentUser: {
+            token:  localStorage.getItem('token'),
+            email:  localStorage.getItem('email')
+          }
         };
     case REDIRECT:
       return { ...state, redirectTo: null };

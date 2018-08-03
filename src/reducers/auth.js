@@ -10,10 +10,15 @@ import {
 function auth(state = {
     isRunning: false,
     isAuthenticated: localStorage.getItem('token') ? true : false,
-    redirectTo: '/login'
+    redirectTo: '/login',
+    currentUser: {
+      token: localStorage.getItem('token'),
+      email: localStorage.getItem('email')
+    }
   }, action) {
 
-  console.log("Action type:\n" + action.type);
+  console.log("AUTH REDUCER\n" + action.type);
+  console.log(action);
 
   switch (action.type) {
     case LOGIN_REQUEST:
@@ -40,10 +45,4 @@ function auth(state = {
   }
 };
 
-const gamesApp = combineReducers({
-  auth,
-  games,
-
-});
-
-export default gamesApp;
+export default auth;

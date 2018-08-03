@@ -2,7 +2,7 @@ import Header from './Header';
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import store from '../store';
+import {store} from '../store';
 import { push } from 'react-router-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { REDIRECT, APP_LOAD } from '../constants/actionTypes';
@@ -10,9 +10,14 @@ import { REDIRECT, APP_LOAD } from '../constants/actionTypes';
 class App extends React.Component {
 
   componentWillMount() {
-    const token = window.localStorage.getItem('token');
-    let cachedUser =  {token, email : localStorage.getItem('email')};
-    this.props.onLoad(token ? {user : cachedUser} : null, token);
+    let token = window.localStorage.getItem('token');
+    let email = window.localStorage.getItem('email');
+    let currentUser =  {
+      token, 
+      email
+    };
+
+    this.props.onLoad({ currentUser });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,28 +45,17 @@ class App extends React.Component {
   }
 };
 
-// App.defaultProps = store.defaultProps;
-
-// // type-check to ensure App can render
-// App.propTypes = {
-// 	dispatch: PropTypes.func.isRequired,
-// 	isAuthenticated: PropTypes.bool.isRequired,
-// 	errorMessage: PropTypes.string.isRequired
-// }
-
 const mapDispatchToProps = dispatch => ({
   onRedirect: () =>
     dispatch({ type: REDIRECT }),
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token }),
+  onLoad: (currentUser) =>
+    dispatch({ type: APP_LOAD, currentUser }),
 });
 
 const mapStateToProps = state => ({
   appName: state.common.appName,
   loaded: state.common.appLoaded,
   currentUser: state.common.currentUser,
-  // isAuthenticated: state.gamesApp.auth.isAuthenticated,
-  // errorMessage: state.gamesApp.auth.errorMessage,
   redirectTo: state.common.redirectTo
 });
 

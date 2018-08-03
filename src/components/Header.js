@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import React from 'react';
 
 const RenderLogin = (props) => {
-  if (!props.currentUser) {
+  if (!props.currentUser || props.currentUser) {
     return (
       <li className="nav-item">
         <Link to="/login" className="nav-link">
@@ -16,7 +16,7 @@ const RenderLogin = (props) => {
 };
 
 const RenderLogout = (props) => {
-  if (props.currentUser) {
+  if (props.currentUser && !props.currentUser) {
     return (
       <li className="nav-item">
         <Link to="/" className="nav-link">

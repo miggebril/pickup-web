@@ -1,6 +1,6 @@
-import Banner from './Banner'
+import React from 'react';
+import Banner from './Banner';
 import MainView from './MainView';
-import React from 'react'
 import { connect } from 'react-redux'
 import { getGameFeed } from '../../actions';
 import { gameActions } from '../../actions/gameActions';
@@ -15,12 +15,13 @@ const Promise = global.Promise;
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.currentUser.token
+  token: state.common.currentUser.token,
+  currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (feed, request, payload) =>
-    dispatch({ type: HOME_PAGE_LOADED, feed, request, payload }),
+  onLoad: (feed, currentUser, request, payload) =>
+    dispatch({ type: HOME_PAGE_LOADED, feed, currentUser, request, payload }),
   onUnload: () => {
     dispatch({ type: HOME_PAGE_UNLOADED })
   }
@@ -29,10 +30,14 @@ const mapDispatchToProps = dispatch => ({
 class Home extends React.Component {
 
   componentWillMount() {
-    const feed = this.props.token ? 'local' : 'global';
-    const requestHandler = getGameFeed;
+    console.log("HOME PROPS");
+    console.log(this.props);
 
-    this.props.onLoad(feed, requestHandler, Promise.all([requestHandler()]));
+    const requestHandler = getGameFeed;
+    const currentUser = this.props.currentUser;
+    const feed = currentUser.token ? 'local' : 'global';
+
+    this.props.onLoad(feed, currentUser, requestHandler, Promise.all([requestHandler()]));
   }
 
   componentWillUnmount() {
@@ -45,7 +50,7 @@ class Home extends React.Component {
 
     return (
       <div className="home-page">
-        <Banner token={this.props.token} appName={this.props.appName} />
+        <Banner token={this.props.currentUser.token} appName={this.props.appName} />
 
         <div className="container page">
           <div className="row">

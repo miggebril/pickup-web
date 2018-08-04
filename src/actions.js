@@ -136,7 +136,7 @@ export function getGameFeed(creds) {
 
 		dispatch(onGameRequest(creds));
 
-		return fetch('http://localhost:8077/games', request)
+		return fetch(endpoint, request)
 			.then(response => 
 				response.text().then(game => ({game, response})))
 			.then(({game, response}) => {

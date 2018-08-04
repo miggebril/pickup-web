@@ -33,8 +33,7 @@ class Game extends React.Component {
     }
 
     const markup = { __html: marked(this.props.game.name, { sanitize: true }) };
-    const canModify = this.props.currentUser &&
-      this.props.currentUser.email === this.props.game.owner.email;
+
     return (
       <div className="article-page">
 

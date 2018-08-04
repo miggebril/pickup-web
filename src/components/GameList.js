@@ -8,7 +8,7 @@ const GameList = props => {
       <div className="game-preview">Loading...</div>
     );
   } else if (props.games) {
-      if (props.games.length == 0) {
+      if (props.games.length === 0) {
         return (
               <div className="game-preview">
                 No games currently available... Try starting one.

@@ -3,7 +3,7 @@ import GameList from '../GameList';
 import store from '../../store';
 import { connect } from 'react-redux';
 import { getGameFeed } from '../../actions';
-import { CHANGE_TAB, GAME_INFO_REQUEST } from '../../constants/actionTypes';
+import { GAME_INFO_REQUEST } from '../../constants/actionTypes';
 
 const RenderLocalFeed = (props) => {
   console.log("Local Feed PROPS");
@@ -75,10 +75,6 @@ const MainView = props => {
     token : localStorage.getItem('token'),
     email : localStorage.getItem('email')
   };
-
-  const handleFeedClick = (event) => {
-    event.preventDefault();
-  }
 
   return (
     <div className="col-md-9">

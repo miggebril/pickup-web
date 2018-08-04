@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
-import { GAME_INFO_REQUEST, 
-         GAME_INFO_SUCCESS, 
-         GAME_INFO_FAIL } from '../constants/actionTypes';
+import { GAME_INFO_REQUEST } from '../constants/actionTypes';
 
 const ACTIVE_CLASS = 'game-status-active';
 const PENDING_CLASS = 'game-status-pending';
@@ -25,20 +23,13 @@ const GamePreview = props => {
   const game = props.game;
   const gameClass = hasNext(game) ? PENDING_CLASS : ACTIVE_CLASS;
 
-  const handleClick = (event) => {
-    event.preventDefault();
-
-    console.log("Game Preview PROPS");
-    console.log(props);
-  }
-
   return (
     <div className="article-preview">
       <div className="article-meta">
 
         <div className="info">
           <Link to={`users/${game.Owner.ID}`} className="court">
-           { game.HomeCourt.name }
+           { game.HomeCourt.Name }
           </Link>
           <div>
             <span className={gameClass}>

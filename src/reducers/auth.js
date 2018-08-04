@@ -1,6 +1,3 @@
-import { combineReducers } from 'redux';
-import games from './games';
-import gameList from './gameList';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,

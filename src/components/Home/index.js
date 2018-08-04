@@ -3,7 +3,6 @@ import Banner from './Banner';
 import MainView from './MainView';
 import { connect } from 'react-redux'
 import { getGameFeed } from '../../actions';
-import { gameActions } from '../../actions/gameActions';
 
 import {
   HOME_PAGE_LOADED,

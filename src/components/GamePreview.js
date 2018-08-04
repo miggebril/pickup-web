@@ -1,12 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import '../index.css';
+
 import { GAME_INFO_REQUEST, 
          GAME_INFO_SUCCESS, 
          GAME_INFO_FAIL } from '../constants/actionTypes';
 
-const ACTIVE_CLASS = 'btn btn-sm btn-primary';
-const PENDING_CLASS = 'btn btn-sm btn-outline-primary';
+const ACTIVE_CLASS = 'game-status-active';
+const PENDING_CLASS = 'game-status-pending';
+
+const hasNext = (game) => {
+  return (game.HomeScore === 0 && game.AwayScore === 0);
+};
 
 const mapDispatchToProps = dispatch => ({
   onGetGame: id => dispatch({type: GAME_INFO_REQUEST, id: id})
@@ -17,8 +23,7 @@ const GamePreview = props => {
   console.log(props);
 
   const game = props.game;
-  const gameClass = game.HomeScore === 0 && game.AwayScore === 0 ?
-    ACTIVE_CLASS : PENDING_CLASS;
+  const gameClass = hasNext(game) ? PENDING_CLASS : ACTIVE_CLASS;
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -28,29 +33,28 @@ const GamePreview = props => {
   }
 
   return (
-    <div className="game-preview">
-      <div className="game-meta">
+    <div className="article-preview">
+      <div className="article-meta">
 
         <div className="info">
           <Link to={`users/${game.Owner.ID}`} className="court">
            { game.HomeCourt.name }
           </Link>
-          <button className={gameClass} onClick={handleClick}>
-            <span className="status">
-              
-              { gameClass === ACTIVE_CLASS ?
-                  'Has next...' : 'IN PLAY'
-              }
+          <div>
+            <span className={gameClass}>
+                
+                { gameClass === ACTIVE_CLASS ?
+                    'IN PLAY' : 'Has next...' 
+                }
 
             </span>
-          </button>
+          </div>
         </div>
 
         <div className="pull-xs-right">
           <button
             className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart"></i>
-            {game.HomeCourt.rating}
+            <span>{game.HomeCourt.Rating ? game.HomeCourt.Rating.toFixed(1) : 0}</span>
           </button>
 
         </div>

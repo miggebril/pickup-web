@@ -29,3 +29,9 @@ body {
     color: #D8000C;
     background-color: #FFD2D2;
 }
+.game-status-pending {
+    color: #5CB85C;
+}
+.game-status-active {
+  color: #9F6000;
+}

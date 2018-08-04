@@ -18,7 +18,11 @@ import {
 } from '../constants/actionTypes';
 
 export default function common(state = {
-    appName: 'Pickup'
+    appName: 'Pickup',
+    currentUser: {
+      token: (localStorage.getItem('token') ? localStorage.getItem('token') : ''),
+      email: (localStorage.getItem('email') ? localStorage.getItem('email') : '')
+    }
   }, action) {
 
   console.log("COMMON REDUCER CALLED");
@@ -27,14 +31,13 @@ export default function common(state = {
 
   switch (action.type) {
     case APP_LOAD:
-        return {
-          ...state,
+        return Object.assign({}, state, {
           appLoaded: true,
           currentUser: {
-            token:  action.currentUser.token,
-            email:  action.currentUser.email
+            token:  localStorage.getItem('token'),
+            email:  localStorage.getItem('email')
           }
-        };
+        });
     case HOME_PAGE_LOADED:
     return {
           ...state,

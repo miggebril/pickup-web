@@ -21,7 +21,7 @@ class Login extends React.Component {
     console.log(this.props);
 
     this.props.dispatch(login({ type : 'LOGIN_REQUEST', credentials}));
-    this.props.router.push("/");
+    this.props.history.push("/");
     this.setState({
       isLoggedIn: true
     });

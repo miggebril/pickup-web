@@ -1,8 +1,9 @@
+import Home from './Home'
 import Header from './Header';
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {store} from '../store';
+import store from '../store';
 import { push } from 'react-router-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { REDIRECT, APP_LOAD } from '../constants/actionTypes';
@@ -38,6 +39,10 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser}
             dispatch={dispatch}
+          />
+          <Home
+            appName={this.props.appName}
+            currentUser={this.props.currentUser}
           />
           {this.props.children}
         </div>

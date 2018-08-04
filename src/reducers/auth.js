@@ -12,8 +12,8 @@ function auth(state = {
     isAuthenticated: localStorage.getItem('token') ? true : false,
     redirectTo: '/login',
     currentUser: {
-      token: localStorage.getItem('token'),
-      email: localStorage.getItem('email')
+      token: (localStorage.getItem('token') ? localStorage.getItem('token') : ''),
+      email: (localStorage.getItem('email') ? localStorage.getItem('email') : '')
     }
   }, action) {
 

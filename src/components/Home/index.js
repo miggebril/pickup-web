@@ -14,9 +14,7 @@ const Promise = global.Promise;
 
 const mapStateToProps = state => ({
   ...state.home,
-  appName: state.common.appName,
-  token: state.common.currentUser.token,
-  currentUser: state.common.currentUser
+  appName: state.common.appName
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -32,6 +30,7 @@ class Home extends React.Component {
   componentWillMount() {
     console.log("HOME PROPS");
     console.log(this.props);
+    console.log(this.state);
 
     const requestHandler = getGameFeed;
     const currentUser = this.props.currentUser;

@@ -1,6 +1,6 @@
 import React from 'react';
 import GameList from '../GameList';
-import {store} from '../../store';
+import store from '../../store';
 import { connect } from 'react-redux';
 import { getGameFeed } from '../../actions';
 import { CHANGE_TAB, GAME_INFO_REQUEST } from '../../constants/actionTypes';
@@ -58,7 +58,7 @@ const RenderGlobalFeed = (props) => {
 
 const mapStateToProps = state => ({
   ...state.games,
-  currentUser: state.currentUser
+  loading: false
 });
 
 const mapDispatchToProps = dispatch => ({
